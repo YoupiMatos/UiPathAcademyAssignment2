@@ -2,7 +2,7 @@
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
-    <x:Property Name="out_TaxID" Type="InArgument(x:String)" />
+    <x:Property Name="io_TaxID" Type="InOutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -111,7 +111,7 @@
     </ui:GetFullText>
     <Assign sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[out_TaxID]</OutArgument>
+        <OutArgument x:TypeArguments="x:String">[io_TaxID]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="x:String">[TaxID.TrimEnd()]</InArgument>

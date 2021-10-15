@@ -1,15 +1,15 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="UploadYearlyReport" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_TaxID" Type="InArgument(x:String)" />
     <x:Property Name="out_ConfirmationID" Type="OutArgument(x:String)" />
+    <x:Property Name="io_TaxID" Type="InOutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>977,2015</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>977,2623</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>UploadYearlyReport_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="26">
+    <scg:List x:TypeArguments="x:String" Capacity="29">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -36,6 +36,9 @@
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Runtime.InteropServices</x:String>
       <x:String>System.Reflection</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.Platform.Triggers</x:String>
+      <x:String>UiPath.Platform.Triggers.Scope</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -66,19 +69,20 @@
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="UploadYearlyReport" sap:VirtualizedContainerService.HintSize="376,2411" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="UploadYearlyReport" sap:VirtualizedContainerService.HintSize="839,2807" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="ConfirmationID" />
+      <Variable x:TypeArguments="x:Boolean" Name="TextOrName" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  Reports'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  Reports'" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -100,7 +104,7 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Texte Upload'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Texte Upload'" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -122,7 +126,7 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Fill Vendor TaxID" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" SimulateType="True" Text="[in_TaxID]">
+    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Fill Vendor TaxID" sap:VirtualizedContainerService.HintSize="797,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" SimulateType="True" Text="[io_TaxID]">
       <ui:TypeInto.Target>
         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4baf15ac-9fe8-4aff-aaab-165a2a697b24" InformativeScreenshot="2918534c77e8a6f9a9014b89499c9702" Selector="&lt;wnd app='iexplore.exe' cls='IEFrame' title='ACME System 1 - Upload Yearly Report - Internet Explorer' /&gt;&lt;uia automationid='vendorTaxID' role='Modifier' /&gt;">
           <ui:Target.TimeoutMS>
@@ -134,7 +138,7 @@
         </ui:Target>
       </ui:TypeInto.Target>
     </ui:TypeInto>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  ---'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  ---'" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -156,7 +160,7 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Select 2020" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Select 2020" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -178,7 +182,7 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click on Upload button" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click on Upload button" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -200,7 +204,7 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'barre d’outils'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'barre d’outils'" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -222,7 +226,7 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into 'barre d’outils'" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="downloads[k(enter)]">
+    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into 'barre d’outils'" EmptyField="True" sap:VirtualizedContainerService.HintSize="797,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="downloads[k(enter)]">
       <ui:TypeInto.Target>
         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1dda0cd3-9b46-4d34-8228-c412a94abb37" InformativeScreenshot="f980308dffccef20c92908082d07b056" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Choisir un fichier à charger' /&gt;&lt;uia automationid='41477' cls='ComboBox' omit:name='Adresse' /&gt;&lt;uia automationid='41477' cls='Edit' omit:name='Adresse' /&gt;">
           <ui:Target.TimeoutMS>
@@ -234,7 +238,7 @@
         </ui:Target>
       </ui:TypeInto.Target>
     </ui:TypeInto>
-    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Input Name" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_3" SimulateType="True" Text="[&quot;Yearly-Report-2020-&quot; + in_TaxID +&quot;.xlsx&quot;]">
+    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Input Name" sap:VirtualizedContainerService.HintSize="797,134" sap2010:WorkflowViewState.IdRef="TypeInto_3" SimulateType="True" Text="[&quot;Yearly-Report-2020-&quot; + io_TaxID +&quot;.xlsx&quot;]">
       <ui:TypeInto.Target>
         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="9371891d-359c-4128-b5b4-0b289593fbfc" InformativeScreenshot="246f5d614ff8f4c888c0952e76b66a30" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Choisir un fichier à charger' /&gt;&lt;uia automationid='1148' cls='ComboBox' name='Nom du fichier :' /&gt;&lt;uia automationid='1148' cls='Edit' name='Nom du fichier :' /&gt;">
           <ui:Target.TimeoutMS>
@@ -246,7 +250,7 @@
         </ui:Target>
       </ui:TypeInto.Target>
     </ui:TypeInto>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  Ouvrir'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_10" KeyModifiers="None" MouseButton="BTN_LEFT">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  Ouvrir'" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_10" KeyModifiers="None" MouseButton="BTN_LEFT">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -268,7 +272,7 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  Upload Report'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_7" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  Upload Report'" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_7" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -290,31 +294,69 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:GetFullText IgnoreHidden="{x:Null}" DisplayName="Get Full Text 'Texte Report'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetFullText_1">
-      <ui:GetFullText.Target>
-        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cbfd186a-7fac-4fc1-a436-58f0ca3d1c78" InformativeScreenshot="799290dff29c859107d6ec7d46f2747c" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Message de la page Web' /&gt;&lt;uia automationid='65535' cls='Static' name='Report was uploaded - confirmation id is 279c793d20f71fed35abece*' /&gt;">
-          <ui:Target.TimeoutMS>
-            <InArgument x:TypeArguments="x:Int32" />
-          </ui:Target.TimeoutMS>
+    <ui:UiElementExists DisplayName="Element Exists 'Static'" Exists="[TextOrName]" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+      <ui:UiElementExists.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ae3ffa67-be0c-4481-b799-891f4b504008" InformativeScreenshot="0ef1d70be6bee60fe86e43d6a69d824a" Selector="&lt;wnd app='iexplore.exe' omit:cls='#32770' title='Message de la page Web' /&gt;&lt;wnd omit:ctrlid='65535' title='Report was uploaded - confirmation id is *' /&gt;" TimeoutMS="2000">
           <ui:Target.WaitForReady>
             <InArgument x:TypeArguments="ui:WaitForReady" />
           </ui:Target.WaitForReady>
         </ui:Target>
-      </ui:GetFullText.Target>
-      <ui:GetFullText.Text>
-        <OutArgument x:TypeArguments="x:String">[ConfirmationID]</OutArgument>
-      </ui:GetFullText.Text>
-    </ui:GetFullText>
-    <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      </ui:UiElementExists.Target>
+    </ui:UiElementExists>
+    <If Condition="[TextOrName]" sap:VirtualizedContainerService.HintSize="797,356" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,198" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:GetFullText IgnoreHidden="{x:Null}" DisplayName="Get Full Text 'Texte Report'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetFullText_1">
+            <ui:GetFullText.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cbfd186a-7fac-4fc1-a436-58f0ca3d1c78" InformativeScreenshot="799290dff29c859107d6ec7d46f2747c" Selector="&lt;wnd app='iexplore.exe' title='Message de la page Web' /&gt;&lt;wnd aaname='Report was uploaded - confirmation id is *' /&gt;" WaitForReady="COMPLETE">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+              </ui:Target>
+            </ui:GetFullText.Target>
+            <ui:GetFullText.Text>
+              <OutArgument x:TypeArguments="x:String">[ConfirmationID]</OutArgument>
+            </ui:GetFullText.Text>
+          </ui:GetFullText>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,198" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:GetFullText IgnoreHidden="{x:Null}" DisplayName="Get Full Text 'text Report'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetFullText_2">
+            <ui:GetFullText.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="136030a3-f041-41cd-9f14-64245426eb85" InformativeScreenshot="bc62551f816deb06cd12b6be294f528f" Selector="&lt;wnd app='iexplore.exe' omit:cls='#32770' title='Message de la page Web' /&gt;&lt;wnd aaname='Message de la page Web' omit:cls='DirectUIHWND' /&gt;&lt;ctrl name='Message de la page Web' role='pane' /&gt;&lt;ctrl name='Report was uploaded - confirmation id is *' role='text' /&gt;" WaitForReady="COMPLETE">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+              </ui:Target>
+            </ui:GetFullText.Target>
+            <ui:GetFullText.Text>
+              <OutArgument x:TypeArguments="x:String">[ConfirmationID]</OutArgument>
+            </ui:GetFullText.Text>
+          </ui:GetFullText>
+        </Sequence>
+      </If.Else>
+    </If>
+    <Assign sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_ConfirmationID]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[ConfirmationID.split(" "c)(7)]</InArgument>
+        <InArgument x:TypeArguments="x:String">[ConfirmationID.split(" "c)(7).trim()]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[out_ConfirmationID]" />
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  OK'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_8" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="797,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[out_ConfirmationID]" />
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Bouton  OK'" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_8" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>
@@ -326,17 +368,14 @@
         </ui:CursorPosition>
       </ui:Click.CursorPosition>
       <ui:Click.Target>
-        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0283fa87-ca65-4852-943e-ed3109ced9ac" InformativeScreenshot="7f454a6c80947be8167a0ade6bcdcc9d" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Message de la page Web' /&gt;&lt;uia automationid='2' cls='Button' name='OK' /&gt;">
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0283fa87-ca65-4852-943e-ed3109ced9ac" InformativeScreenshot="7f454a6c80947be8167a0ade6bcdcc9d" Selector="&lt;wnd app='iexplore.exe' omit:cls='#32770' title='Message de la page Web' /&gt;&lt;wnd omit:ctrlid='2' title='OK' /&gt;" WaitForReady="COMPLETE">
           <ui:Target.TimeoutMS>
             <InArgument x:TypeArguments="x:Int32" />
           </ui:Target.TimeoutMS>
-          <ui:Target.WaitForReady>
-            <InArgument x:TypeArguments="ui:WaitForReady" />
-          </ui:Target.WaitForReady>
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Texte  Home'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_9" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+    <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Texte  Home'" sap:VirtualizedContainerService.HintSize="342,106" sap2010:WorkflowViewState.IdRef="Click_9" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
       <ui:Click.CursorPosition>
         <ui:CursorPosition Position="Center">
           <ui:CursorPosition.OffsetX>

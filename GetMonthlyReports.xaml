@@ -1,12 +1,12 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="GetMonthlyReports" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
-    <x:Property Name="in_TaxID" Type="InArgument(x:String)" />
+    <x:Property Name="io_TaxID" Type="InOutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>977,1878</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>977,2262</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetMonthlyReports_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="28">
@@ -69,16 +69,14 @@
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="GetMonthlyReports" sap:VirtualizedContainerService.HintSize="917,2197" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="s:String[]" Name="Months">
-        <Variable.Default>
-          <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="{}{&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;}" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="s:String[]" Default="[{&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;}]" Name="Months" />
+      <Variable x:TypeArguments="x:String" Name="variable1" />
+      <Variable x:TypeArguments="x:String" Name="month" />
+      <Variable x:TypeArguments="x:Boolean" Name="ReportExists" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -97,12 +95,12 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="[in_Config(&quot;AcmeSystemURL&quot;).ToString + &quot;/reports/download&quot;]" />
+            <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="[&quot;https://acme-test.uipath.com&quot; + &quot;/reports/download&quot;]" />
           </Sequence>
         </ActivityAction>
       </ui:BrowserScope.Body>
     </ui:BrowserScope>
-    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Type Into 'Modifier  vendorTaxID'" sap:VirtualizedContainerService.HintSize="875,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" SimulateType="True" Text="[in_TaxID]">
+    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Type Into 'Modifier  vendorTaxID'" sap:VirtualizedContainerService.HintSize="875,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" SimulateType="True" Text="[io_TaxID]">
       <ui:TypeInto.Target>
         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="951b85be-36c8-4e8c-83b1-4010438714b3" InformativeScreenshot="32b475552720fcfc195047dc724a9d7c" Selector="&lt;wnd app='iexplore.exe' cls='IEFrame' title='ACME System 1 - Download Monthly Report - Internet Explorer' /&gt;&lt;uia automationid='vendorTaxID' role='Modifier' /&gt;">
           <ui:Target.TimeoutMS>
@@ -126,7 +124,7 @@
         </ui:CursorPosition>
       </ui:Click.CursorPosition>
       <ui:Click.Target>
-        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4c3d3384-09e9-4ace-a869-3baa4fcc7e2b" InformativeScreenshot="2b9ce364554b68d207ccd73e4bdd6306" Selector="&lt;wnd app='iexplore.exe' cls='IEFrame' title='ACME System 1 - Download Monthly Report - Internet Explorer' /&gt;&lt;uia name='---' role='Bouton' /&gt;">
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4c3d3384-09e9-4ace-a869-3baa4fcc7e2b" InformativeScreenshot="ae928d2e9ce67620aa71ad313262174b" Selector="&lt;html title='ACME System 1 - Download Monthly Report' /&gt;&lt;webctrl aaname='Year:' tag='LABEL' /&gt;&lt;nav up='1' /&gt;&lt;webctrl aria-role='button' tag='BUTTON' /&gt;">
           <ui:Target.TimeoutMS>
             <InArgument x:TypeArguments="x:Int32" />
           </ui:Target.TimeoutMS>
@@ -158,17 +156,13 @@
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
-    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="875,1156" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Months]">
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="875,1156" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[Months]">
       <ui:ForEach.Body>
-        <ActivityAction x:TypeArguments="x:Object">
+        <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="x:Object" Name="month" />
+            <DelegateInArgument x:TypeArguments="x:String" Name="month" />
           </ActivityAction.Argument>
           <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="839,1032" sap2010:WorkflowViewState.IdRef="Sequence_4">
-            <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="month" />
-              <Variable x:TypeArguments="x:Boolean" Name="ReportExists" />
-            </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -186,7 +180,7 @@
                 </ui:CursorPosition>
               </ui:Click.CursorPosition>
               <ui:Click.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f38a980d-4775-44f5-9731-b84838667e61" InformativeScreenshot="a701331a124811c28af5f1b28017311c" Selector="&lt;wnd app='iexplore.exe' cls='IEFrame' title='ACME System 1 - Download Monthly Report - Internet Explorer' /&gt;&lt;uia name='---' role='Bouton' /&gt;">
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f38a980d-4775-44f5-9731-b84838667e61" InformativeScreenshot="a701331a124811c28af5f1b28017311c" Selector="&lt;html title='ACME System 1 - Download Monthly Report' /&gt;&lt;webctrl aaname='Month:' tag='LABEL' /&gt;&lt;nav up='1' /&gt;&lt;webctrl aria-role='*' tag='BUTTON' /&gt;">
                   <ui:Target.TimeoutMS>
                     <InArgument x:TypeArguments="x:Int32" />
                   </ui:Target.TimeoutMS>
@@ -208,7 +202,7 @@
                 </ui:CursorPosition>
               </ui:Click.CursorPosition>
               <ui:Click.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="01f1e595-b801-4d94-9add-7605d095197f" InformativeScreenshot="8fdea45beb0eaeca7c08dae098b651be" Selector="[String.Format(&quot;&lt;wnd app='iexplore.exe' cls='IEFrame' title='ACME System 1 - Download Monthly Report - Internet Explorer' /&gt;&lt;uia name='---&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;January&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;February&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;March&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;April&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;May&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;*' role='zone de liste modifiable' /&gt;&lt;uia role='liste' /&gt;&lt;uia name='{0}' role='option' /&gt;&quot;, month)]">
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="01f1e595-b801-4d94-9add-7605d095197f" InformativeScreenshot="8fdea45beb0eaeca7c08dae098b651be" Selector="[String.Format(&quot;&lt;html title='ACME System 1 - Download Monthly Report' /&gt;&lt;webctrl aaname='{0}' aria-role='option' tag='A' /&gt;&quot;, month)]">
                   <ui:Target.TimeoutMS>
                     <InArgument x:TypeArguments="x:Int32" />
                   </ui:Target.TimeoutMS>
@@ -242,10 +236,7 @@
             </ui:Click>
             <ui:UiElementExists DisplayName="Element Exists 'iexplore.exe Message'" Exists="[ReportExists]" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
               <ui:UiElementExists.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="176aa499-08b9-429a-9bd3-04809f20e1d2" InformativeScreenshot="2fbaa3a9081f2e416377794da3b32aba" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Message de la page Web' /&gt;">
-                  <ui:Target.TimeoutMS>
-                    <InArgument x:TypeArguments="x:Int32" />
-                  </ui:Target.TimeoutMS>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="176aa499-08b9-429a-9bd3-04809f20e1d2" InformativeScreenshot="2fbaa3a9081f2e416377794da3b32aba" Selector="&lt;wnd app='iexplore.exe' omit:cls='#32770' title='Message de la page Web' /&gt;" TimeoutMS="3000">
                   <ui:Target.WaitForReady>
                     <InArgument x:TypeArguments="ui:WaitForReady" />
                   </ui:Target.WaitForReady>
@@ -260,7 +251,7 @@
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Save the file" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_8" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Save the file" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_8" KeyModifiers="None" MouseButton="BTN_LEFT">
                     <ui:Click.CursorPosition>
                       <ui:CursorPosition Position="Center">
                         <ui:CursorPosition.OffsetX>
@@ -272,13 +263,10 @@
                       </ui:CursorPosition>
                     </ui:Click.CursorPosition>
                     <ui:Click.Target>
-                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="03c33cd0-d495-4814-8e02-c13425c0a440" InformativeScreenshot="9b659696f4ca455c9a746891a598b573" Selector="&lt;wnd app='iexplore.exe' cls='IEFrame' title='ACME System 1 - Download Monthly Report - Internet Explorer' /&gt;&lt;uia automationid='IENotificationBar' cls='DirectUIHWND' name='Notification' /&gt;&lt;uia name='Enregistrer' role='bouton partagé' /&gt;">
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="03c33cd0-d495-4814-8e02-c13425c0a440" InformativeScreenshot="9b659696f4ca455c9a746891a598b573" Selector="&lt;wnd app='iexplore.exe' cls='IEFrame' title='ACME System 1 - Download Monthly Report - Internet Explorer' /&gt;&lt;uia automationid='IENotificationBar' cls='DirectUIHWND' name='Notification' /&gt;&lt;uia name='Enregistrer' role='bouton partagé' /&gt;" WaitForReady="COMPLETE">
                         <ui:Target.TimeoutMS>
                           <InArgument x:TypeArguments="x:Int32" />
                         </ui:Target.TimeoutMS>
-                        <ui:Target.WaitForReady>
-                          <InArgument x:TypeArguments="ui:WaitForReady" />
-                        </ui:Target.WaitForReady>
                       </ui:Target>
                     </ui:Click.Target>
                   </ui:Click>
@@ -303,13 +291,10 @@
                       </ui:CursorPosition>
                     </ui:Click.CursorPosition>
                     <ui:Click.Target>
-                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="978fc84a-2b5c-4f64-8db9-6871f2fd8fe0" InformativeScreenshot="9e647e96000f7b23c54856096eb00dcd" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Message de la page Web' /&gt;&lt;uia automationid='2' cls='Button' name='OK' /&gt;">
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="978fc84a-2b5c-4f64-8db9-6871f2fd8fe0" InformativeScreenshot="9e647e96000f7b23c54856096eb00dcd" Selector="&lt;wnd app='iexplore.exe' title='Message de la page Web' /&gt;&lt;wnd title='OK' /&gt;" WaitForReady="COMPLETE">
                         <ui:Target.TimeoutMS>
                           <InArgument x:TypeArguments="x:Int32" />
                         </ui:Target.TimeoutMS>
-                        <ui:Target.WaitForReady>
-                          <InArgument x:TypeArguments="ui:WaitForReady" />
-                        </ui:Target.WaitForReady>
                       </ui:Target>
                     </ui:Click.Target>
                   </ui:Click>

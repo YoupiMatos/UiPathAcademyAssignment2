@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>977,863</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>878,863</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Main2_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="66">
@@ -138,30 +138,14 @@
                 <TryCatch.Try>
                   <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GetTransactionData workflow" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_20" UnSafe="False" WorkflowFileName="Framework\GetTransactionData.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">
-                        <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="TransactionNumber" />
-                      </InArgument>
-                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-                        <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
-                      </InArgument>
-                      <OutArgument x:TypeArguments="sd:DataRow" x:Key="out_TransactionItem">
-                        <mva:VisualBasicReference x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
-                      </OutArgument>
-                      <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField1">
-                        <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="TransactionField1" />
-                      </OutArgument>
-                      <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField2">
-                        <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="TransactionField2" />
-                      </OutArgument>
-                      <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionID">
-                        <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="TransactionID" />
-                      </OutArgument>
-                      <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_TransactionData">
-                        <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="TransactionData" />
-                      </InOutArgument>
-                      <InArgument x:TypeArguments="sd:DataRow[]" x:Key="in_WorkItems">
-                        <mva:VisualBasicValue x:TypeArguments="sd:DataRow[]" ExpressionText="WorkItems" />
-                      </InArgument>
+                      <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">[TransactionNumber]</InArgument>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
+                      <OutArgument x:TypeArguments="sd:DataRow" x:Key="out_TransactionItem">[TransactionItem]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField1">[TransactionField1]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField2">[TransactionField2]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionID">[TransactionID]</OutArgument>
+                      <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_TransactionData">[TransactionData]</InOutArgument>
+                      <InArgument x:TypeArguments="sd:DataRow[]" x:Key="in_WorkItems">[WorkItems]</InArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
                 </TryCatch.Try>
@@ -223,9 +207,9 @@
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <Transition.To>
-            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="Process a single transaction. &#xA;The result of the processing can be: 1) Success, 2) Business Exception, 3) System Exception. &#xA;In the case of a system exception, the transaction can be automatically retried." DisplayName="Process Transaction" sap:VirtualizedContainerService.HintSize="231,187" sap2010:WorkflowViewState.IdRef="State_3">
+            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="Process a single transaction. &#xA;The result of the processing can be: 1) Success, 2) Business Exception, 3) System Exception. &#xA;In the case of a system exception, the transaction can be automatically retried." DisplayName="Process Transaction" sap:VirtualizedContainerService.HintSize="484,773" sap2010:WorkflowViewState.IdRef="State_3">
               <State.Entry>
-                <TryCatch DisplayName="Try to process transaction" sap:VirtualizedContainerService.HintSize="438,531" sap2010:WorkflowViewState.IdRef="TryCatch_9">
+                <TryCatch DisplayName="Try to process transaction" sap:VirtualizedContainerService.HintSize="438,287" sap2010:WorkflowViewState.IdRef="TryCatch_9">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -249,12 +233,8 @@
                       </Assign>
                       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_24" UnSafe="False" WorkflowFileName="Framework\Process.xaml">
                         <ui:InvokeWorkflowFile.Arguments>
-                          <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
-                            <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
-                          </InArgument>
-                          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-                            <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
-                          </InArgument>
+                          <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[TransactionItem]</InArgument>
+                          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
                         </ui:InvokeWorkflowFile.Arguments>
                       </ui:InvokeWorkflowFile>
                     </Sequence>
@@ -275,6 +255,16 @@
                       </ActivityAction>
                     </Catch>
                   </TryCatch.Catches>
+                  <TryCatch.Finally>
+                    <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_30">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[TransactionNumber]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">[TransactionNumber + 1]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </TryCatch.Finally>
                 </TryCatch>
               </State.Entry>
               <sap:WorkflowViewStateService.ViewState>
@@ -299,7 +289,7 @@
                   </sap:WorkflowViewStateService.ViewState>
                   <Transition.Condition>[SystemException IsNot Nothing]</Transition.Condition>
                   <Transition.To>
-                    <State x:Name="__ReferenceID3" sap2010:Annotation.AnnotationText="Read configuration file and initialize applications used in the process." DisplayName="Initialization" sap:VirtualizedContainerService.HintSize="610,3438" sap2010:WorkflowViewState.IdRef="State_2">
+                    <State x:Name="__ReferenceID3" sap2010:Annotation.AnnotationText="Read configuration file and initialize applications used in the process." DisplayName="Initialization" sap:VirtualizedContainerService.HintSize="254,103" sap2010:WorkflowViewState.IdRef="State_2">
                       <State.Entry>
                         <TryCatch DisplayName="Try initializing settings and applications" sap:VirtualizedContainerService.HintSize="564,3020" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                           <sap:WorkflowViewStateService.ViewState>
@@ -400,9 +390,7 @@
                                     </ui:InvokeWorkflowFile>
                                     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke LoginToSystem1 workflow" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_30" UnSafe="False" WorkflowFileName="System1\LoginToSystem1.xaml">
                                       <ui:InvokeWorkflowFile.Arguments>
-                                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-                                          <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
-                                        </InArgument>
+                                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
                                       </ui:InvokeWorkflowFile.Arguments>
                                     </ui:InvokeWorkflowFile>
                                     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke NavigateToWorkItems workflow" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_31" UnSafe="False" WorkflowFileName="System1\NavigateToWorkItems.xaml">
@@ -412,9 +400,7 @@
                                     </ui:InvokeWorkflowFile>
                                     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ExtractWorkItems workflow" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_32" UnSafe="False" WorkflowFileName="System1\ExtractWorkItems.xaml">
                                       <ui:InvokeWorkflowFile.Arguments>
-                                        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_WorkItems">
-                                          <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="TransactionData" />
-                                        </OutArgument>
+                                        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_WorkItems">[TransactionData]</OutArgument>
                                       </ui:InvokeWorkflowFile.Arguments>
                                     </ui:InvokeWorkflowFile>
                                     <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_29">
@@ -457,9 +443,7 @@
                               </If>
                               <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke InitiAllApplications workflow" sap:VirtualizedContainerService.HintSize="484,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Framework\InitAllApplications.xaml">
                                 <ui:InvokeWorkflowFile.Arguments>
-                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-                                    <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
-                                  </InArgument>
+                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
                                 </ui:InvokeWorkflowFile.Arguments>
                               </ui:InvokeWorkflowFile>
                             </Sequence>

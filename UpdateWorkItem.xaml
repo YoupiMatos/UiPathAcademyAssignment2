@@ -204,13 +204,10 @@
         </ui:CursorPosition>
       </ui:Click.CursorPosition>
       <ui:Click.Target>
-        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ec53898f-6ee3-4f28-95b3-ef011eecf91f" InformativeScreenshot="003e1a998be79f0022765b296bcddcac" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Message de la page Web' /&gt;&lt;uia automationid='CommandButton_1' cls='CCPushButton' name='OK' /&gt;">
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ec53898f-6ee3-4f28-95b3-ef011eecf91f" InformativeScreenshot="003e1a998be79f0022765b296bcddcac" Selector="&lt;wnd app='iexplore.exe' title='Message de la page Web' /&gt;&lt;wnd title='OK' /&gt;" WaitForReady="COMPLETE">
           <ui:Target.TimeoutMS>
             <InArgument x:TypeArguments="x:Int32" />
           </ui:Target.TimeoutMS>
-          <ui:Target.WaitForReady>
-            <InArgument x:TypeArguments="ui:WaitForReady" />
-          </ui:Target.WaitForReady>
         </ui:Target>
       </ui:Click.Target>
     </ui:Click>
